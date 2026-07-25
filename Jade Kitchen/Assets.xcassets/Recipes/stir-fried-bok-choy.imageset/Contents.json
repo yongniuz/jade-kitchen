@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "stir-fried-bok-choy.jpg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

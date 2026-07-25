@@ -1,0 +1,317 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0DB2F1DD4D1142E49D2B4F4B /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9E29B5008C4952B0EF7040 /* DesignSystem.swift */; };
+		29B39E2AE47C4D95AE6988A0 /* JadeKitchenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0163E0AB96D449C0A067C233 /* JadeKitchenApp.swift */; };
+		368D74397A6040149C9A85B8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9168FA08FE546F19A704C56 /* ContentView.swift */; };
+		3897722433604CF09C549458 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0519424FD88F459EA9E6A84B /* Models.swift */; };
+		4578D2CAC659464495CF7ECC /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AD831ADD154C4B864C53A7 /* HomeView.swift */; };
+		49034F73A48A4D059FFC6D92 /* Manrope-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93691206B3C2414DB6C44D94 /* Manrope-Regular.ttf */; };
+		644DB4BB230D4BF09A87D915 /* RecipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE275F11294D4AFEB1D7F807 /* RecipeCard.swift */; };
+		8DBCB877FF274198A749CC3C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D788CD4CC4C4D3E8BA6CA6C /* SearchView.swift */; };
+		92BE100F57A44276BA4EF58D /* RecipeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA35875CBEC240C9ADC8BDA8 /* RecipeDetailView.swift */; };
+		9443A25BC54B45159C5504BE /* Manrope-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 538AE7CC4F4A4017A4F144B4 /* Manrope-SemiBold.ttf */; };
+		98694ABB5B1847449FCBD5EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C28B0246A2AE45C3A17F8656 /* Assets.xcassets */; };
+		9EC22C75C03442A69F373EF3 /* RecipeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E95E55CE67246269A3B3A9A /* RecipeData.swift */; };
+		A9BEA6AF05A445A688964508 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B344D2AF2B7345EB9E0C720A /* AppState.swift */; };
+		C70DB3358BE048CFB34448AC /* CormorantGaramond-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18B5ECDAF1F04758B8CDB857 /* CormorantGaramond-SemiBold.ttf */; };
+		CA3D7F2EB231406891A61E5C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A75366D5974E419D31864E /* ProfileView.swift */; };
+		DC8B460269A44E7CB0A9E4A1 /* Manrope-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43616B5A2D33496E9D80BF29 /* Manrope-Bold.ttf */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0163E0AB96D449C0A067C233 /* JadeKitchenApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JadeKitchenApp.swift; sourceTree = "<group>"; };
+		0519424FD88F459EA9E6A84B /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		0E95E55CE67246269A3B3A9A /* RecipeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeData.swift; sourceTree = "<group>"; };
+		18B5ECDAF1F04758B8CDB857 /* CormorantGaramond-SemiBold.ttf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; path = "CormorantGaramond-SemiBold.ttf"; sourceTree = "<group>"; };
+		2D788CD4CC4C4D3E8BA6CA6C /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		36A75366D5974E419D31864E /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		4023DF5686E64129BC10A0CA /* Jade Kitchen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Jade Kitchen.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		43616B5A2D33496E9D80BF29 /* Manrope-Bold.ttf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; path = "Manrope-Bold.ttf"; sourceTree = "<group>"; };
+		538AE7CC4F4A4017A4F144B4 /* Manrope-SemiBold.ttf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; path = "Manrope-SemiBold.ttf"; sourceTree = "<group>"; };
+		5E9E29B5008C4952B0EF7040 /* DesignSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
+		91AD831ADD154C4B864C53A7 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		93691206B3C2414DB6C44D94 /* Manrope-Regular.ttf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; path = "Manrope-Regular.ttf"; sourceTree = "<group>"; };
+		A9168FA08FE546F19A704C56 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		AE275F11294D4AFEB1D7F807 /* RecipeCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeCard.swift; sourceTree = "<group>"; };
+		B344D2AF2B7345EB9E0C720A /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		C28B0246A2AE45C3A17F8656 /* Assets.xcassets */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EA35875CBEC240C9ADC8BDA8 /* RecipeDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F018312A675345C9A5218703 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		614345C5F6E24D728632051A /* Jade Kitchen */ = {
+			isa = PBXGroup;
+			children = (
+				0163E0AB96D449C0A067C233 /* JadeKitchenApp.swift */,
+				A9168FA08FE546F19A704C56 /* ContentView.swift */,
+				B344D2AF2B7345EB9E0C720A /* AppState.swift */,
+				0519424FD88F459EA9E6A84B /* Models.swift */,
+				0E95E55CE67246269A3B3A9A /* RecipeData.swift */,
+				5E9E29B5008C4952B0EF7040 /* DesignSystem.swift */,
+				AE275F11294D4AFEB1D7F807 /* RecipeCard.swift */,
+				91AD831ADD154C4B864C53A7 /* HomeView.swift */,
+				2D788CD4CC4C4D3E8BA6CA6C /* SearchView.swift */,
+				EA35875CBEC240C9ADC8BDA8 /* RecipeDetailView.swift */,
+				36A75366D5974E419D31864E /* ProfileView.swift */,
+				67DB45061DCC4C628026DA3A /* Fonts */,
+				C28B0246A2AE45C3A17F8656 /* Assets.xcassets */,
+			);
+			path = "Jade Kitchen";
+			sourceTree = "<group>";
+		};
+		67DB45061DCC4C628026DA3A /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				18B5ECDAF1F04758B8CDB857 /* CormorantGaramond-SemiBold.ttf */,
+				93691206B3C2414DB6C44D94 /* Manrope-Regular.ttf */,
+				538AE7CC4F4A4017A4F144B4 /* Manrope-SemiBold.ttf */,
+				43616B5A2D33496E9D80BF29 /* Manrope-Bold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		A26E5A960CB3440098DBE9C4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4023DF5686E64129BC10A0CA /* Jade Kitchen.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E2E360DA7733401CABD4EBCB = {
+			isa = PBXGroup;
+			children = (
+				614345C5F6E24D728632051A /* Jade Kitchen */,
+				A26E5A960CB3440098DBE9C4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		10DBAFA5B32E48278A60565D /* Jade Kitchen */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CCABAF9A41204ABCAD29D01A /* Build configuration list for PBXNativeTarget "Jade Kitchen" */;
+			buildPhases = (
+				D50C31D41E224D98BD33312E /* Sources */,
+				3B38EE65504F498AA48127BC /* Resources */,
+				F018312A675345C9A5218703 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Jade Kitchen";
+			packageProductDependencies = (
+			);
+			productName = "Jade Kitchen";
+			productReference = 4023DF5686E64129BC10A0CA /* Jade Kitchen.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D2260656F8474171BAE59189 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					10DBAFA5B32E48278A60565D = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = C12E979A9B2D47C1B1A36A7F /* Build configuration list for PBXProject "Jade Kitchen" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E2E360DA7733401CABD4EBCB;
+			productRefGroup = A26E5A960CB3440098DBE9C4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				10DBAFA5B32E48278A60565D /* Jade Kitchen */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3B38EE65504F498AA48127BC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98694ABB5B1847449FCBD5EF /* Assets.xcassets in Resources */,
+				C70DB3358BE048CFB34448AC /* CormorantGaramond-SemiBold.ttf in Resources */,
+				49034F73A48A4D059FFC6D92 /* Manrope-Regular.ttf in Resources */,
+				9443A25BC54B45159C5504BE /* Manrope-SemiBold.ttf in Resources */,
+				DC8B460269A44E7CB0A9E4A1 /* Manrope-Bold.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D50C31D41E224D98BD33312E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				29B39E2AE47C4D95AE6988A0 /* JadeKitchenApp.swift in Sources */,
+				368D74397A6040149C9A85B8 /* ContentView.swift in Sources */,
+				A9BEA6AF05A445A688964508 /* AppState.swift in Sources */,
+				3897722433604CF09C549458 /* Models.swift in Sources */,
+				9EC22C75C03442A69F373EF3 /* RecipeData.swift in Sources */,
+				0DB2F1DD4D1142E49D2B4F4B /* DesignSystem.swift in Sources */,
+				644DB4BB230D4BF09A87D915 /* RecipeCard.swift in Sources */,
+				4578D2CAC659464495CF7ECC /* HomeView.swift in Sources */,
+				8DBCB877FF274198A749CC3C /* SearchView.swift in Sources */,
+				92BE100F57A44276BA4EF58D /* RecipeDetailView.swift in Sources */,
+				CA3D7F2EB231406891A61E5C /* ProfileView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		670A4197F93E4903BC00273B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 72Q6BRQNFJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ericz.jadekitchen;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				UIFONT_NAMES_PROVIDED = "CormorantGaramond-SemiBold Manrope-Regular Manrope-SemiBold Manrope-Bold";
+			};
+			name = Release;
+		};
+		73B4301821364209A0247877 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		9DAB335D6E9147CDBC33A874 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 72Q6BRQNFJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ericz.jadekitchen;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				UIFONT_NAMES_PROVIDED = "CormorantGaramond-SemiBold Manrope-Regular Manrope-SemiBold Manrope-Bold";
+			};
+			name = Debug;
+		};
+		C25789F355C442B3ADC924AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C12E979A9B2D47C1B1A36A7F /* Build configuration list for PBXProject "Jade Kitchen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C25789F355C442B3ADC924AD /* Debug */,
+				73B4301821364209A0247877 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CCABAF9A41204ABCAD29D01A /* Build configuration list for PBXNativeTarget "Jade Kitchen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9DAB335D6E9147CDBC33A874 /* Debug */,
+				670A4197F93E4903BC00273B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D2260656F8474171BAE59189 /* Project object */;
+}
