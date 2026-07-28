@@ -23,6 +23,7 @@
 		C70DB3358BE048CFB34448AC /* CormorantGaramond-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18B5ECDAF1F04758B8CDB857 /* CormorantGaramond-SemiBold.ttf */; };
 		CA3D7F2EB231406891A61E5C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A75366D5974E419D31864E /* ProfileView.swift */; };
 		DC8B460269A44E7CB0A9E4A1 /* Manrope-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43616B5A2D33496E9D80BF29 /* Manrope-Bold.ttf */; };
+		36B0445C983D4AE4818E7B88 /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D0A8D55CB04CCCB903B149 /* FiltersView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		B344D2AF2B7345EB9E0C720A /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		C28B0246A2AE45C3A17F8656 /* Assets.xcassets */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EA35875CBEC240C9ADC8BDA8 /* RecipeDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
+		79D0A8D55CB04CCCB903B149 /* FiltersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				2D788CD4CC4C4D3E8BA6CA6C /* SearchView.swift */,
 				EA35875CBEC240C9ADC8BDA8 /* RecipeDetailView.swift */,
 				36A75366D5974E419D31864E /* ProfileView.swift */,
+				79D0A8D55CB04CCCB903B149 /* FiltersView.swift */,
 				67DB45061DCC4C628026DA3A /* Fonts */,
 				C28B0246A2AE45C3A17F8656 /* Assets.xcassets */,
 			);
@@ -189,6 +192,7 @@
 				8DBCB877FF274198A749CC3C /* SearchView.swift in Sources */,
 				92BE100F57A44276BA4EF58D /* RecipeDetailView.swift in Sources */,
 				CA3D7F2EB231406891A61E5C /* ProfileView.swift in Sources */,
+				36B0445C983D4AE4818E7B88 /* FiltersView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,25 +206,18 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 72Q6BRQNFJ;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				DEVELOPMENT_TEAM = 59Z2FTJ4SK;
+				INFOPLIST_FILE = "Jade Kitchen/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ericz.jadekitchen;
+				PRODUCT_BUNDLE_IDENTIFIER = com.npetroni.jadekitchen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
-				UIFONT_NAMES_PROVIDED = "CormorantGaramond-SemiBold Manrope-Regular Manrope-SemiBold Manrope-Bold";
 			};
 			name = Release;
 		};
@@ -249,18 +246,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 72Q6BRQNFJ;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				DEVELOPMENT_TEAM = 59Z2FTJ4SK;
+				INFOPLIST_FILE = "Jade Kitchen/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ericz.jadekitchen;
+				PRODUCT_BUNDLE_IDENTIFIER = com.npetroni.jadekitchen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -268,7 +259,6 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
-				UIFONT_NAMES_PROVIDED = "CormorantGaramond-SemiBold Manrope-Regular Manrope-SemiBold Manrope-Bold";
 			};
 			name = Debug;
 		};

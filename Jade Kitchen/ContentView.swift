@@ -20,9 +20,10 @@ struct ContentView: View {
 
             Group {
                 switch store.selectedTab {
-                case .home:    HomeView(store: store)
-                case .search:  SearchView(store: store)
-                case .profile: ProfileView(store: store)
+                case .home:      HomeView(store: store)
+                case .search:    SearchView(store: store)
+                case .favorites: FavoritesView(store: store)
+                case .settings:  SettingsView(store: store)
                 }
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {

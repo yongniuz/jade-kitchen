@@ -13,10 +13,44 @@ struct HomeView: View {
         }
     }
 
-    private var featured: [Recipe] { Array(store.filteredRecipes.prefix(3)) }
-    private var favorites: [Recipe] {
-        let all = store.filteredRecipes
-        return all.count > 3 ? Array(all.dropFirst(3)) : []
+    // Rotates once per ISO week. Uses a deterministic (non-randomized) hash
+    // rather than Swift's Hasher, whose per-process seed would otherwise
+    // reshuffle this on every app launch instead of only once a week.
+    private var featured: [Recipe] {
+        let seed = Self.currentWeekSeed
+        let pool = store.filteredRecipes
+        return Array(
+            pool.sorted { Self.weeklyRank($0, seed: seed) < Self.weeklyRank($1, seed: seed) }
+                .prefix(3)
+        )
+    }
+
+    private var moreRecipes: [Recipe] {
+        // When the weekly feed is hidden, nothing's been "used up" by it —
+        // everything belongs in Home-style Favorites instead.
+        guard store.weeklyDigest else { return store.filteredRecipes }
+        let featuredIDs = Set(featured.map(\.id))
+        return store.filteredRecipes.filter { !featuredIDs.contains($0.id) }
+    }
+
+    private static var currentWeekSeed: Int {
+        var calendar = Calendar(identifier: .iso8601)
+        calendar.timeZone = TimeZone(identifier: "UTC") ?? .current
+        let comps = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date())
+        return (comps.yearForWeekOfYear ?? 0) * 100 + (comps.weekOfYear ?? 0)
+    }
+
+    private static func weeklyRank(_ recipe: Recipe, seed: Int) -> UInt64 {
+        fnv1aHash("\(seed)|\(recipe.title)")
+    }
+
+    private static func fnv1aHash(_ string: String) -> UInt64 {
+        var hash: UInt64 = 0xcbf29ce484222325
+        for byte in string.utf8 {
+            hash ^= UInt64(byte)
+            hash = hash &* 0x100000001b3
+        }
+        return hash
     }
 
     private let gridColumns = [GridItem(.flexible(), spacing: 14), GridItem(.flexible(), spacing: 14)]
@@ -82,28 +116,33 @@ struct HomeView: View {
                     .padding(.bottom, 20)
 
                     // ── Featured This Week ────────────────────────────────
-                    Text("Featured This Week")
-                        .font(JadeFont.display(19))
-                        .foregroundColor(Color.Jade.ink900)
-                        .padding(.horizontal, 20)
-                        .padding(.bottom, 8)
+                    // Hidden entirely when the "Weekly recipe digest" setting is off.
+                    if store.weeklyDigest {
+                        Text("Featured This Week")
+                            .font(JadeFont.display(19))
+                            .foregroundColor(Color.Jade.ink900)
+                            .padding(.horizontal, 20)
+                            .padding(.bottom, 8)
 
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 14) {
-                            ForEach(featured) { recipe in
-                                Button { store.openRecipe(recipe) } label: {
-                                    RecipeCard(recipe: recipe, width: 260)
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 14) {
+                                ForEach(featured) { recipe in
+                                    Button { store.openRecipe(recipe) } label: {
+                                        RecipeCard(recipe: recipe, width: 260,
+                                                   isSaved: store.savedRecipes.contains(recipe.title),
+                                                   onToggleSave: { store.toggleSaved(recipe) })
+                                    }
+                                    .buttonStyle(.plain)
                                 }
-                                .buttonStyle(.plain)
                             }
+                            .padding(.horizontal, 20)
+                            .padding(.bottom, 4)
                         }
-                        .padding(.horizontal, 20)
                         .padding(.bottom, 4)
                     }
-                    .padding(.bottom, 4)
 
                     // ── 福 section divider ────────────────────────────────
-                    if !favorites.isEmpty {
+                    if !moreRecipes.isEmpty {
                         HStack(spacing: 12) {
                             Rectangle()
                                 .fill(Color.Jade.gold400.opacity(0.5))
@@ -129,9 +168,11 @@ struct HomeView: View {
                             .padding(.top, 2)
 
                         LazyVGrid(columns: gridColumns, spacing: 14) {
-                            ForEach(favorites) { recipe in
+                            ForEach(moreRecipes) { recipe in
                                 Button { store.openRecipe(recipe) } label: {
-                                    RecipeCard(recipe: recipe, width: gridCardWidth)
+                                    RecipeCard(recipe: recipe, width: gridCardWidth,
+                                               isSaved: store.savedRecipes.contains(recipe.title),
+                                               onToggleSave: { store.toggleSaved(recipe) })
                                 }
                                 .buttonStyle(.plain)
                             }
@@ -178,11 +219,6 @@ struct HomeView: View {
                             .foregroundColor(.white)
                     }
                     Spacer()
-                    DragonMarkView(size: 46)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 14, style: .continuous)
-                                .stroke(Color.Jade.gold400, lineWidth: 2)
-                        )
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 56 + 16)
@@ -198,5 +234,15 @@ struct HomeView: View {
             }
         }
         .fixedSize(horizontal: false, vertical: true)
+        // Extends the header's own top color far above itself — attached as
+        // a background (rather than a ZStack child) so it can't inflate the
+        // fixedSize height above — so a rubber-band overscroll at the top
+        // of the screen still shows lacquer, not the cream background
+        // peeking through behind it.
+        .background(alignment: .top) {
+            Color.Jade.lacquer800
+                .frame(height: 600)
+                .offset(y: -600)
+        }
     }
 }

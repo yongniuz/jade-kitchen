@@ -3,9 +3,13 @@ import SwiftUI
 struct RecipeCard: View {
     let recipe: Recipe
     var width: CGFloat? = nil
+    var isSaved: Bool = false
+    var onToggleSave: (() -> Void)? = nil
 
     private var isCompact: Bool { (width ?? 0) < 200 }
-    private var cardHeight:  CGFloat { isCompact ? 242 : 310 }
+    // A little taller than before to make room for the Chinese name, which
+    // now always renders on its own line under the English name.
+    private var cardHeight:  CGFloat { isCompact ? 262 : 336 }
     private var photoHeight: CGFloat { isCompact ? 120 : 160 }
 
     private func shortTime(_ t: String) -> String {
@@ -50,6 +54,20 @@ struct RecipeCard: View {
                 }
             }
             .frame(width: width, height: photoHeight)
+            .overlay(alignment: .topTrailing) {
+                if let onToggleSave {
+                    Button(action: onToggleSave) {
+                        Image(systemName: isSaved ? "heart.fill" : "heart")
+                            .font(.system(size: 12, weight: .bold))
+                            .foregroundColor(isSaved ? .white : Color.Jade.ink900)
+                            .frame(width: 26, height: 26)
+                            .background(isSaved ? Color.Jade.lacquer600 : Color.white.opacity(0.85))
+                            .clipShape(Circle())
+                    }
+                    .buttonStyle(.plain)
+                    .padding(8)
+                }
+            }
 
             // ── Body
             VStack(alignment: .leading, spacing: 5) {
@@ -59,20 +77,24 @@ struct RecipeCard: View {
                     pill(shortTime(recipe.time), icon: "⏱")
                 }
 
-                Text(recipe.title)
+                Text(recipe.displayName)
                     .font(JadeFont.display(isCompact ? 15 : 20))
                     .foregroundColor(Color.Jade.ink900)
                     .lineLimit(2)
 
-                if !isCompact, let cn = chineseNames[recipe.title] {
-                    Text(cn)
-                        .font(.system(size: 12))
+                if let chinese = recipe.chineseName {
+                    Text(chinese)
+                        .font(JadeFont.ui(isCompact ? 12 : 13))
                         .foregroundColor(Color.Jade.ink300)
                         .lineLimit(1)
                 }
 
-                StarRating(value: recipe.rating, count: recipe.reviewCount,
-                           size: isCompact ? 12 : 14)
+                if !isCompact, let description = recipe.description {
+                    Text(description)
+                        .font(JadeFont.ui(12))
+                        .foregroundColor(Color.Jade.ink300)
+                        .lineLimit(1)
+                }
             }
             .padding(isCompact ? 10 : 14)
 

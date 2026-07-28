@@ -1,6 +1,121 @@
 import SwiftUI
 
-struct ProfileView: View {
+// MARK: - Favorites tab
+struct FavoritesView: View {
+    @Bindable var store: AppState
+
+    private let gridColumns = [GridItem(.flexible(), spacing: 14), GridItem(.flexible(), spacing: 14)]
+
+    private var gridCardWidth: CGFloat {
+        let screen = UIScreen.main.bounds.width
+        return floor((screen - 20 - 20 - 14) / 2)
+    }
+
+    var body: some View {
+        ScrollView(showsIndicators: false) {
+            VStack(alignment: .leading, spacing: 0) {
+                header
+
+                if store.favoriteRecipes.isEmpty {
+                    emptyState
+                } else {
+                    LazyVGrid(columns: gridColumns, spacing: 14) {
+                        ForEach(store.favoriteRecipes) { recipe in
+                            Button { store.openRecipe(recipe) } label: {
+                                RecipeCard(recipe: recipe, width: gridCardWidth,
+                                           isSaved: true,
+                                           onToggleSave: { store.toggleSaved(recipe) })
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.top, 20)
+                }
+
+                Color.clear.frame(height: 28)
+            }
+        }
+        .background(Color.clear)
+        .ignoresSafeArea(edges: .top)
+    }
+
+    private var header: some View {
+        ZStack {
+            LinearGradient.jadeHero
+
+            Text("囍")
+                .font(.system(size: 52, design: .serif))
+                .foregroundColor(Color.Jade.gold600)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .padding(.top, 54)
+                .padding(.leading, 14)
+
+            Image("MotifLantern")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 34, height: 56)
+                .opacity(0.4)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                .padding(.top, 6)
+                .padding(.trailing, 16)
+
+            VStack(spacing: 8) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: JadeRadius.card, style: .continuous)
+                        .fill(Color.Jade.gold200)
+                        .frame(width: 74, height: 74)
+                    Image(systemName: "heart.fill")
+                        .font(.system(size: 26))
+                        .foregroundColor(Color.Jade.jade900)
+                }
+                .overlay(
+                    RoundedRectangle(cornerRadius: JadeRadius.card, style: .continuous)
+                        .stroke(Color.Jade.gold400, lineWidth: 2)
+                )
+
+                Text("Favorites")
+                    .font(JadeFont.display(26))
+                    .foregroundColor(.white)
+
+                Text("\(store.savedRecipes.count) recipe\(store.savedRecipes.count == 1 ? "" : "s") saved")
+                    .font(JadeFont.ui(12.5))
+                    .foregroundColor(Color.Jade.jade100)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.top, 90)
+            .padding(.bottom, 30)
+
+            VStack {
+                Spacer()
+                Rectangle()
+                    .fill(Color.Jade.gold600)
+                    .frame(height: 2)
+            }
+        }
+        .fixedSize(horizontal: false, vertical: true)
+    }
+
+    private var emptyState: some View {
+        VStack(spacing: 10) {
+            Image(systemName: "heart")
+                .font(.system(size: 40, weight: .ultraLight))
+                .foregroundColor(Color.Jade.ink300)
+            Text("No favorites yet")
+                .font(JadeFont.ui(14, weight: .semibold))
+                .foregroundColor(Color.Jade.ink500)
+            Text("Tap the heart on any recipe to save it here.")
+                .font(JadeFont.ui(13))
+                .foregroundColor(Color.Jade.ink300)
+                .multilineTextAlignment(.center)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.top, 60)
+    }
+}
+
+// MARK: - Settings tab
+struct SettingsView: View {
     @Bindable var store: AppState
 
     var body: some View {
@@ -35,13 +150,12 @@ struct ProfileView: View {
                         .padding(.trailing, 16)
 
                     VStack(spacing: 8) {
-                        // Avatar
                         ZStack {
                             RoundedRectangle(cornerRadius: JadeRadius.card, style: .continuous)
                                 .fill(Color.Jade.gold200)
                                 .frame(width: 74, height: 74)
-                            Text("MC")
-                                .font(JadeFont.display(26))
+                            Image(systemName: "gearshape.fill")
+                                .font(.system(size: 26))
                                 .foregroundColor(Color.Jade.jade900)
                         }
                         .overlay(
@@ -49,13 +163,9 @@ struct ProfileView: View {
                                 .stroke(Color.Jade.gold400, lineWidth: 2)
                         )
 
-                        Text("Mei Chen")
-                            .font(JadeFont.display(21))
+                        Text("Settings")
+                            .font(JadeFont.display(26))
                             .foregroundColor(.white)
-
-                        Text("\(store.savedRecipes.count) recipes saved · Home cook")
-                            .font(JadeFont.ui(12.5))
-                            .foregroundColor(Color.Jade.jade100)
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.top, 90)
@@ -83,15 +193,6 @@ struct ProfileView: View {
                 .padding(.horizontal, 20)
                 .padding(.top, 22)
                 .padding(.bottom, 20)
-
-                // ── Account ───────────────────────────────────────────────
-                VStack(alignment: .leading, spacing: 14) {
-                    sectionLabel("Account")
-                    JadeButton(title: "Edit Profile", variant: .ghost) {}
-                    JadeButton(title: "Sign Out",     variant: .text)  {}
-                }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 28)
 
                 // ── Photo Credits ──────────────────────────────────────────
                 VStack(alignment: .leading, spacing: 12) {

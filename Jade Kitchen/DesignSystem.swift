@@ -47,15 +47,15 @@ extension Color {
 
 // MARK: - Typography
 enum JadeFont {
+    // Bumps every size passed through display()/ui() so text reads a bit
+    // larger app-wide without having to touch each call site.
+    private static let scale: CGFloat = 1.15
+
     static func display(_ size: CGFloat, weight: Font.Weight = .semibold) -> Font {
-        .custom("CormorantGaramond-SemiBold", size: size)
+        .custom("CormorantGaramond-SemiBold", size: size * scale)
     }
     static func ui(_ size: CGFloat, weight: Font.Weight = .regular) -> Font {
-        switch weight {
-        case .bold:        return .custom("Manrope-Bold",     size: size)
-        case .semibold:    return .custom("Manrope-SemiBold", size: size)
-        default:           return .custom("Manrope-Regular",  size: size)
-        }
+        .custom("CormorantGaramond-SemiBold", size: size * scale).weight(weight)
     }
 }
 
@@ -191,26 +191,6 @@ struct SpicyTag: View {
     }
 }
 
-// MARK: - StarRating
-struct StarRating: View {
-    let value: Double
-    let count: Int
-    var size: CGFloat = 14
-
-    var body: some View {
-        HStack(spacing: 3) {
-            ForEach(1...5, id: \.self) { i in
-                Image(systemName: Double(i) <= value ? "star.fill" : "star")
-                    .font(.system(size: size - 2))
-                    .foregroundColor(Double(i) <= value ? Color.Jade.gold600 : Color.Jade.ink100)
-            }
-            Text("\(String(format: "%.1f", value)) (\(count))")
-                .font(JadeFont.ui(12))
-                .foregroundColor(Color.Jade.ink500)
-        }
-    }
-}
-
 // MARK: - JadeSearchBar
 struct JadeSearchBar: View {
     @Binding var text: String
@@ -272,128 +252,6 @@ struct JadeToggle: View {
     }
 }
 
-// MARK: - JadeButton
-struct JadeButton: View {
-    enum Variant { case primary, ghost, text }
-    let title: String
-    var variant: Variant = .primary
-    var fullWidth = false
-    let action: () -> Void
-
-    var body: some View {
-        Button(action: action) {
-            Text(title)
-                .font(JadeFont.ui(15, weight: .semibold))
-                .foregroundColor(fgColor)
-                .frame(maxWidth: fullWidth ? .infinity : nil)
-                .frame(height: variant == .primary ? 48 : nil)
-                .padding(.horizontal, variant == .text ? 0 : 20)
-                .padding(.vertical, variant == .ghost ? 12 : 0)
-                .background(bgColor)
-                .clipShape(RoundedRectangle(cornerRadius: JadeRadius.pill, style: .continuous))
-                .overlay(
-                    RoundedRectangle(cornerRadius: JadeRadius.pill, style: .continuous)
-                        .stroke(variant == .ghost ? Color.Jade.ink300 : Color.clear, lineWidth: 1)
-                )
-        }
-        .buttonStyle(.plain)
-    }
-
-    private var bgColor: Color {
-        switch variant {
-        case .primary: return Color.Jade.jade900
-        case .ghost, .text: return .clear
-        }
-    }
-    private var fgColor: Color {
-        switch variant {
-        case .primary: return .white
-        case .ghost: return Color.Jade.ink900
-        case .text: return Color.Jade.ink500
-        }
-    }
-}
-
-// MARK: - DragonMarkView (native Canvas — SVG linearGradient unsupported in Xcode parser)
-struct DragonMarkView: View {
-    var size: CGFloat = 46
-
-    var body: some View {
-        Canvas { ctx, sz in
-            let s = sz.width / 120.0
-            func p(_ x: CGFloat, _ y: CGFloat) -> CGPoint { CGPoint(x: x*s, y: y*s) }
-
-            let jadeLight = Color(hex: "#146b57")
-            let jadeDark  = Color(hex: "#0a3a30")
-            let gold      = Color(hex: "#c9a227")
-            let cream     = Color(hex: "#fbf7ee")
-
-            // Background
-            let bg = Path(roundedRect: CGRect(x: 4*s, y: 4*s, width: 112*s, height: 112*s),
-                          cornerRadius: 30*s)
-            ctx.fill(bg, with: .linearGradient(
-                Gradient(stops: [.init(color: jadeLight, location: 0),
-                                 .init(color: jadeDark,  location: 1)]),
-                startPoint: .zero, endPoint: CGPoint(x: sz.width, y: sz.height)))
-            ctx.stroke(bg, with: .color(gold.opacity(0.85)), lineWidth: 1.75*s)
-
-            // Dragon body
-            var dragon = Path()
-            dragon.move(to: p(24,88))
-            dragon.addCurve(to: p(32,73), control1: p(18,80), control2: p(22,72))
-            dragon.addCurve(to: p(32,59), control1: p(44,74), control2: p(42,62))
-            dragon.addCurve(to: p(32,39), control1: p(22,56), control2: p(21,44))
-            dragon.addCurve(to: p(54,43), control1: p(43,34), control2: p(44,45))
-            dragon.addCurve(to: p(71,25), control1: p(64,41), control2: p(61,29))
-            ctx.stroke(dragon, with: .color(cream),
-                       style: StrokeStyle(lineWidth: 3.4*s, lineCap: .round, lineJoin: .round))
-
-            // Head/snout
-            var head = Path()
-            head.move(to: p(71,25))
-            head.addCurve(to: p(87,30), control1: p(77,22), control2: p(83,24))
-            head.addCurve(to: p(84,38), control1: p(89,33), control2: p(88,37))
-            head.addCurve(to: p(80,31), control1: p(80,39), control2: p(78,35))
-            ctx.stroke(head, with: .color(cream),
-                       style: StrokeStyle(lineWidth: 3.4*s, lineCap: .round, lineJoin: .round))
-
-            // Horn
-            var horn = Path(); horn.move(to: p(78,22)); horn.addLine(to: p(82,14))
-            ctx.stroke(horn, with: .color(gold), style: StrokeStyle(lineWidth: 2.6*s, lineCap: .round))
-
-            // Whisker
-            var wh = Path(); wh.move(to: p(72,20))
-            wh.addCurve(to: p(70,10), control1: p(69,17), control2: p(68,13))
-            ctx.stroke(wh, with: .color(gold.opacity(0.9)), style: StrokeStyle(lineWidth: 2*s, lineCap: .round))
-
-            // Eye dot
-            ctx.fill(Path(ellipseIn: CGRect(x: (83.5-1.8)*s, y: (30.5-1.8)*s,
-                                             width: 3.6*s, height: 3.6*s)), with: .color(gold))
-
-            // Spine tufts
-            for (mx,my,c1x,c1y,c2x,c2y,tx,ty) in [
-                (32,73,30,68,33,64,38,65), (32,59,30,54,33,50,38,51), (54,43,53,38,56,35,61,36)
-            ] as [(CGFloat,CGFloat,CGFloat,CGFloat,CGFloat,CGFloat,CGFloat,CGFloat)] {
-                var t = Path(); t.move(to: p(mx,my))
-                t.addCurve(to: p(tx,ty), control1: p(c1x,c1y), control2: p(c2x,c2y))
-                ctx.stroke(t, with: .color(gold.opacity(0.85)), style: StrokeStyle(lineWidth: 2*s, lineCap: .round))
-            }
-
-            // Pearl + rays
-            ctx.stroke(Path(ellipseIn: CGRect(x: (46-4.2)*s, y: (90-4.2)*s,
-                                               width: 8.4*s, height: 8.4*s)),
-                       with: .color(gold.opacity(0.9)), lineWidth: 1.6*s)
-            for (x1,y1,x2,y2) in [(46,84.5,46,86.4),(46,93.6,46,95.5),
-                                    (40.5,90,42.4,90),(49.6,90,51.5,90)] as [(CGFloat,CGFloat,CGFloat,CGFloat)] {
-                var r = Path(); r.move(to: p(x1,y1)); r.addLine(to: p(x2,y2))
-                ctx.stroke(r, with: .color(gold), style: StrokeStyle(lineWidth: 1.3*s, lineCap: .round))
-            }
-        }
-        .frame(width: size, height: size)
-        .clipShape(RoundedRectangle(cornerRadius: size * 30.0/120.0, style: .continuous))
-    }
-}
-
 // MARK: - JadeTabBar
 struct JadeTabBar: View {
     @Binding var selectedTab: AppTab
@@ -402,9 +260,10 @@ struct JadeTabBar: View {
         let tab: AppTab; let icon: String; let label: String
     }
     private let items: [Item] = [
-        Item(tab: .home,    icon: "house",           label: "Home"),
-        Item(tab: .search,  icon: "magnifyingglass", label: "Search"),
-        Item(tab: .profile, icon: "person.circle",   label: "Profile"),
+        Item(tab: .home,      icon: "house",           label: "Home"),
+        Item(tab: .search,    icon: "magnifyingglass", label: "Search"),
+        Item(tab: .favorites, icon: "heart",           label: "Favorites"),
+        Item(tab: .settings,  icon: "gearshape",       label: "Settings"),
     ]
 
     var body: some View {

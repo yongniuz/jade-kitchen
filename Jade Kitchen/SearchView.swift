@@ -2,9 +2,8 @@ import SwiftUI
 
 struct SearchView: View {
     @Bindable var store: AppState
-    @State private var activeFilters: Set<String> = []
+    @State private var showingFilters = false
 
-    private let filterChips = ["Spicy", "Under 30 min", "Vegetarian", "Noodles"]
     private let gridColumns  = [GridItem(.flexible(), spacing: 14), GridItem(.flexible(), spacing: 14)]
 
     private var gridCardWidth: CGFloat {
@@ -14,9 +13,9 @@ struct SearchView: View {
 
     private var results: [Recipe] {
         var list = store.searchResults
-        if activeFilters.contains("Spicy")        { list = list.filter { $0.spicy } }
-        if activeFilters.contains("Under 30 min") { list = list.filter { timeUnder30($0.time) } }
-        if activeFilters.contains("Noodles")      { list = list.filter { $0.title.lowercased().contains("noodle") } }
+        if !store.keywordFilters.isEmpty {
+            list = list.filter { store.keywordFilters.isSubset(of: Set($0.keywords)) }
+        }
         return list
     }
 
@@ -35,24 +34,55 @@ struct SearchView: View {
                     .padding(.horizontal, 20)
                     .padding(.bottom, 14)
 
-                // Filter chips (wrapping)
+                // Filters entry point — opens the full filters page instead
+                // of cramming every keyword into a row under the search bar.
                 FlowLayout(spacing: 8) {
-                    ForEach(filterChips, id: \.self) { chip in
-                        Button {
-                            if activeFilters.contains(chip) { activeFilters.remove(chip) }
-                            else { activeFilters.insert(chip) }
-                        } label: {
-                            Text(chip)
+                    Button { showingFilters = true } label: {
+                        HStack(spacing: 8) {
+                            Image(systemName: "slider.horizontal.3")
+                                .font(.system(size: 12, weight: .semibold))
+                            Text("Filters")
                                 .font(JadeFont.ui(13, weight: .semibold))
-                                .foregroundColor(activeFilters.contains(chip) ? Color.Jade.jade900 : Color.Jade.ink900)
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 5)
-                                .background(activeFilters.contains(chip) ? Color.Jade.jade50 : Color.Jade.rice300)
-                                .clipShape(RoundedRectangle(cornerRadius: JadeRadius.pill, style: .continuous))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: JadeRadius.pill, style: .continuous)
-                                        .stroke(activeFilters.contains(chip) ? Color.Jade.jade100 : Color.Jade.paperLine, lineWidth: 1)
-                                )
+                            if !store.keywordFilters.isEmpty {
+                                Text("\(store.keywordFilters.count)")
+                                    .font(JadeFont.ui(11, weight: .bold))
+                                    .foregroundColor(.white)
+                                    .frame(minWidth: 18, minHeight: 18)
+                                    .background(Color.Jade.lacquer600)
+                                    .clipShape(Circle())
+                            }
+                        }
+                        .foregroundColor(Color.Jade.jade900)
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 7)
+                        .background(Color.Jade.jade50)
+                        .clipShape(RoundedRectangle(cornerRadius: JadeRadius.pill, style: .continuous))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: JadeRadius.pill, style: .continuous)
+                                .stroke(Color.Jade.jade100, lineWidth: 1)
+                        )
+                    }
+                    .buttonStyle(.plain)
+
+                    ForEach(Array(store.keywordFilters).sorted(), id: \.self) { keyword in
+                        Button {
+                            store.keywordFilters.remove(keyword)
+                        } label: {
+                            HStack(spacing: 4) {
+                                Text(keyword.capitalized)
+                                Image(systemName: "xmark")
+                                    .font(.system(size: 9, weight: .bold))
+                            }
+                            .font(JadeFont.ui(12, weight: .semibold))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 7)
+                            .background(LinearGradient.lacquerHero)
+                            .clipShape(RoundedRectangle(cornerRadius: JadeRadius.pill, style: .continuous))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: JadeRadius.pill, style: .continuous)
+                                    .stroke(Color.Jade.gold400, lineWidth: 1)
+                            )
                         }
                         .buttonStyle(.plain)
                     }
@@ -65,7 +95,7 @@ struct SearchView: View {
                         Image(systemName: "fork.knife.circle")
                             .font(.system(size: 40, weight: .ultraLight))
                             .foregroundColor(Color.Jade.ink300)
-                        Text(store.searchQuery.isEmpty ? "Start typing to search" : "No recipes match \"\(store.searchQuery)\"")
+                        Text(emptyStateMessage)
                             .font(JadeFont.ui(13.5))
                             .foregroundColor(Color.Jade.ink300)
                             .multilineTextAlignment(.center)
@@ -76,7 +106,9 @@ struct SearchView: View {
                     LazyVGrid(columns: gridColumns, spacing: 14) {
                         ForEach(results) { recipe in
                             Button { store.openRecipe(recipe) } label: {
-                                RecipeCard(recipe: recipe, width: gridCardWidth)
+                                RecipeCard(recipe: recipe, width: gridCardWidth,
+                                           isSaved: store.savedRecipes.contains(recipe.title),
+                                           onToggleSave: { store.toggleSaved(recipe) })
                             }
                             .buttonStyle(.plain)
                         }
@@ -88,12 +120,19 @@ struct SearchView: View {
             }
         }
         .background(Color.clear)
+        .sheet(isPresented: $showingFilters) {
+            FiltersView(store: store)
+        }
     }
 
-    private func timeUnder30(_ t: String) -> Bool {
-        if t.contains("hr") { return false }
-        if let mins = t.components(separatedBy: " ").first.flatMap(Int.init) { return mins <= 30 }
-        return false
+    private var emptyStateMessage: String {
+        if !store.searchQuery.isEmpty {
+            return "No recipes match \"\(store.searchQuery)\""
+        } else if !store.keywordFilters.isEmpty {
+            return "No recipes match these filters"
+        } else {
+            return "Start typing to search"
+        }
     }
 }
 
